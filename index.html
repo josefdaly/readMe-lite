@@ -2,17 +2,113 @@
 <html>
   <head>
     <title>Hello React</title>
-    <!-- Not present in the tutorial. Just for basic styling. -->
-    <link rel="stylesheet" href="css/base.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/JSXTransformer.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <link rel="stylesheet" href="css/stylesheet.css" />
   </head>
   <body>
     <div id="content"></div>
-    <script type="text/jsx;harmony=true">
-      var bookIndex = 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="vendor/react.js"></script>
+    <script src="vendor/JSXTransformer.js"></script>
+    <script type="text/jsx">
+      // var Book = React.createClass({
+      //   componentDidMount: function() {
+      //
+      //   },
+      //   render: function() {
+      //     return (
+      //
+      //     );
+      //   }
+      // });
+      var BookInfoCover = React.createClass({
+        getInitialState: function() {
+          return {coverUrl: "http://mave.me/img/projects/full_placeholder.png"}
+        },
+        render: function() {
+          return (
+            <img src={ this.state.coverUrl } alt="" />
+          );
+        }
+      });
+      var BookIndexItem = React.createClass({
+        mouseIn: function() {
+          console.log(this.props.model.cover_url)
+          $('#' + this.props.id + ' > img').addClass('grow')
+        },
+        mouseOut: function() {
+          $('#' + this.props.id + ' > img').removeClass('grow')
+        },
+        render: function() {
+          var classNames = "book-index-item"
+          if (this.props.id - 5 > this.props.startIdx ||
+               this.props.startIdx > this.props.id) {
+            classNames += " hide"
+          }
+          return (
+            <li id={this.props.id} onMouseEnter={this.mouseIn}
+            onMouseOut={this.mouseOut}
+             className={classNames}>
+              <img className="cover-image" src={this.props.model.cover_url} width='90' height='150' alt="" />
+            </li>
+          );
+        }
+      });
+      var BookIndex = React.createClass({
+        loadBooksFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({ data: data });
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          })
+        },
+        clickLeft: function() {
+          var newStartIdx = this.state.startIdx - 1
+          if (newStartIdx >= 0) {
+            this.setState({startIdx: newStartIdx})
+          }
+        },
+        clickRight: function() {
+          var newStartIdx = this.state.startIdx + 1
+          if (newStartIdx + 5 < this.state.data.length) {  
+            this.setState({startIdx: newStartIdx})
+          }
+        },
+        getInitialState: function() {
+          return {data: [], startIdx: 0}
+        },
+        componentDidMount: function() {
+          this.loadBooksFromServer();
+          // setInterval(this.loadBooksFromServer, this.props.pollInterval)
+        },
+        render: function() {
+          var startIdx = this.state.startIdx
+          var Books = this.state.data.map(function (book, idx){
+            return (
+              <BookIndexItem id={idx} startIdx={startIdx} model={book} />
+            );
+          });
+          return (
+            <div className="book-carousel">
+              <div className="arrow" onClick={this.clickLeft}>{'<'}</div>
+              <ul className="book-index">
+                {Books}
+              </ul>
+              <div className="arrow" onClick={this.clickRight}>{'>'}</div>
+            </div>
+          );
+        }
+      });
+      React.render(
+        <BookIndex url="http://www.try-read.me/api/books"
+          pollInterval={3000}/>,
+        document.getElementById('content')
+      );
     </script>
   </body>
 </html>
