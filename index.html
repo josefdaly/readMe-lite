@@ -10,16 +10,6 @@
     <script src="vendor/react.js"></script>
     <script src="vendor/JSXTransformer.js"></script>
     <script type="text/jsx">
-      // var Book = React.createClass({
-      //   componentDidMount: function() {
-      //
-      //   },
-      //   render: function() {
-      //     return (
-      //
-      //     );
-      //   }
-      // });
       var BookInfoCover = React.createClass({
         getInitialState: function() {
           return {coverUrl: "http://mave.me/img/projects/full_placeholder.png"}
@@ -30,6 +20,7 @@
           );
         }
       });
+
       var BookIndexItem = React.createClass({
         mouseIn: function() {
           console.log(this.props.model.cover_url)
@@ -53,6 +44,7 @@
           );
         }
       });
+
       var BookIndex = React.createClass({
         loadBooksFromServer: function() {
           $.ajax({
@@ -75,7 +67,7 @@
         },
         clickRight: function() {
           var newStartIdx = this.state.startIdx + 1
-          if (newStartIdx + 5 < this.state.data.length) {  
+          if (newStartIdx + 5 < this.state.data.length) {
             this.setState({startIdx: newStartIdx})
           }
         },
@@ -104,6 +96,7 @@
           );
         }
       });
+      
       React.render(
         <BookIndex url="http://www.try-read.me/api/books"
           pollInterval={3000}/>,
