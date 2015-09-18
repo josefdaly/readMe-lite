@@ -4,7 +4,11 @@ ul,li,body,p,h1,h2,h3,div,span {
 }
 
 body {
-  background-color: #add8e6;
+  background-color: #add8e6 !important;
+}
+
+hr {
+  border-top: 1px solid #969688 !important;
 }
 
 #nav {
@@ -13,6 +17,9 @@ body {
   color: white;
   height: 70px;
   font-family: 'Roboto', sans-serif;
+  -webkit-box-shadow: -1px -13px 12px 14px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px -13px 12px 14px rgba(0,0,0,0.75);
+  box-shadow: -1px -13px 12px 14px rgba(0,0,0,0.75);
 }
 
 #logo {
@@ -42,14 +49,19 @@ body {
   text-align: center;
 }
 
+.book {
+  position: fixed;
+  background-color: white;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .book-index {
   display: inline-block;
   margin: 20px;
   text-align: center;
-  /*position: relative;*/
-  /*width: 50%;*/
-  /*background-color: blue;*/
-  /*padding: 20px;*/
+  margin-left: 42px;
 }
 
 .book-title {
@@ -79,9 +91,10 @@ body {
 -moz-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
   transition: all .2s ease-in-out;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
-.arrow {
+.carousel-arrow {
   position: absolute;
   bottom: 0;
   height: 60%;
@@ -101,7 +114,7 @@ box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
   background-size: 100% 100%;
     background-repeat: no-repeat;
 }
-.arrow:hover {
+.carousel-arrow:hover {
   color: gray;
   cursor: pointer;
 }
@@ -111,9 +124,15 @@ box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  /*left: calc(50% - 300px);
+  position: fixed;
+  top: 90px;
+  bottom: 200px;*/
   background-color: white;
   padding: 20px;
   border-radius: 7px;
+  font-family: sans-serif;
+  overflow-y: scroll;
 }
 
 .book-carousel {
@@ -142,3 +161,49 @@ box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
    position: fixed;
    bottom: 0;
  }
+
+ .arrow {
+   position: absolute;
+   top: 35%;
+   margin-top: -32px;
+   font-size: 150px;
+   color: #969696;
+   font-family: arial, sans-serif;
+   font-weight: bold;
+   cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   user-select: none;
+   opacity: .5;
+ }
+
+ .arrow:hover {
+   color: #777;
+ }
+
+ .arrow:active {
+   color: #000;
+ }
+
+ #prev {
+   left: 10px;
+ }
+
+ #next {
+   right: 10px;
+ }
+
+#area {
+  height: 100%;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.book-status-bar {
+  padding: 5px;
+}
+
+.book-status-bar button {
+  margin: 2px;
+}
