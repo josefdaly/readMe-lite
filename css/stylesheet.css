@@ -132,6 +132,10 @@ box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
   padding: 20px;
   border-radius: 7px;
   font-family: sans-serif;
+}
+
+.description-wrapper {
+  max-height: 150px;
   overflow-y: scroll;
 }
 
