@@ -11,7 +11,13 @@
     <header id="nav">
       <h1 id="logo"><span class="normal-text">read</span ><span
          class="heavy-text">Me</span> <span class="light-text">lite</span></h1>
+      <div id="menu-icon-wrapper">
+      </div>
     </header>
+    <div id="side-bar" class="side-bar-hide">
+      <span>Other Work By Joseph Daly</span>
+      <a href="#"></a>
+    </div>
     <div id="book-info-container"></div>
     <div id="content"></div>
     <div id="book"></div>
@@ -21,6 +27,49 @@
     <script src="vendor/react.js"></script>
     <script src="vendor/JSXTransformer.js"></script>
     <script type="text/jsx">
+      var MenuIcon = React.createClass({
+        componentDidMount: function() {
+          this.menuOut = false;
+        },
+        getInitialState: function() {
+          return ({
+            firstBarClass: 'icon-bar',
+            secondBarClass: 'icon-bar',
+            thirdBarClass: 'icon-bar'
+          });
+        },
+        sideBarSlide: function() {
+          if (this.menuOut) {
+            $('#side-bar').addClass('side-bar-hide');
+            $('#side-bar').removeClass('side-bar-show');
+            this.menuOut = false;
+            this.setState({
+              firstBarClass: 'icon-bar',
+              secondBarClass: 'icon-bar',
+              thirdBarClass: 'icon-bar'
+            })
+          } else {
+            $('#side-bar').removeClass('side-bar-hidden');
+            $('#side-bar').addClass('side-bar-show');
+            this.menuOut = true;
+            this.setState({
+              firstBarClass: 'icon-bar first-bar-active',
+              secondBarClass: 'icon-bar second-bar-active',
+              thirdBarClass: 'icon-bar third-bar-active'
+            })
+          }
+        },
+        render: function() {
+          debugger
+          return (
+            <div onClick={this.sideBarSlide} className="menu-icon">
+              <div className={this.state.firstBarClass}></div>
+              <div className={this.state.secondBarClass}></div>
+              <div className={this.state.thirdBarClass}></div>
+            </div>
+          )
+        }
+      })
       var BookView = React.createClass({
         increaseFontSize: function() {
           this.font = this.font + .1;
@@ -91,7 +140,11 @@
               <span className="book-author"></span>
               <hr/>
               <div className="description-wrapper">
-                <p className="book-description">{'Welcome to readMe lite, the streamlined, React.js version of'} <a href="http://www.try-read.me">Read Me</a>{'. Hover over a book to learn more!'}</p>
+                <p className="book-description">
+                  {'Welcome to readMe lite, the streamlined, React.js version of '}
+                  <a href="http://www.try-read.me">ReadMe</a>
+                  {". Hover over a book to learn more! Books are accessed via ReadMe's JSON API."}
+                </p>
               </div>
               <hr/>
               <button onClick={this.clickRead} type="button" value="" className="read-btn center-block btn btn-default hide">Read Now</button>
@@ -185,6 +238,11 @@
       React.render(
         <BookInfo />,
         document.getElementById('book-info-container')
+      );
+
+      React.render(
+        <MenuIcon />,
+        document.getElementById('menu-icon-wrapper')
       );
 
       React.render(
