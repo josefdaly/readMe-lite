@@ -60,7 +60,6 @@
           }
         },
         render: function() {
-          debugger
           return (
             <div onClick={this.sideBarSlide} className="menu-icon">
               <div className={this.state.firstBarClass}></div>
@@ -89,13 +88,22 @@
           }
         },
         closeBook: function() {
-          React.unmountComponentAtNode(document.getElementById('book'))
+          $('.book').addClass('book-hide');
+          $('.book').removeClass('book-show');
+          setTimeout(function() {
+            React.unmountComponentAtNode(document.getElementById('book'))
+          }, 2000);
+        },
+        slideUp: function() {
+          $('.book').removeClass('book-hide');
+          $('.book').addClass('book-show');
         },
         componentDidMount: function() {
           this.font = 1;
           this.fontStyle = 'serif';
-          this.Book = ePub(this.props.url)
-          this.Book.renderTo("area")
+          this.Book = ePub(this.props.url);
+          this.Book.renderTo("area");
+          setTimeout(this.slideUp, 500);
         },
         clickLeft: function() {
           this.Book.prevPage();
@@ -105,7 +113,7 @@
         },
         render: function() {
           return (
-            <div className="book">
+            <div className="book book-hide">
               <div id="prev" onClick={this.clickLeft} className="arrow">‹</div>
               <div id="area">
                 <div className="book-status-bar">

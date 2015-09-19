@@ -5,6 +5,11 @@ ul,li,body,p,h1,h2,h3,div,span {
 
 body {
   background-color: #add8e6 !important;
+  background: url("http://www.westminster-church.org/assets/images/library.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 hr {
@@ -52,9 +57,19 @@ hr {
 .book {
   position: fixed;
   background-color: white;
-  top: 0;
   height: 100%;
   width: 100%;
+  transition: all .5s ease-in-out;
+  z-index: 20;
+}
+
+
+.book-show {
+  top: 0;
+}
+
+.book-hide {
+  top: 100%;
 }
 
 .book-index {
@@ -96,12 +111,22 @@ hr {
 }
 
 .carousel-arrow {
+  -webkit-box-shadow: 0px 2px 12px 11px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 2px 12px 11px rgba(0,0,0,1);
+  box-shadow: 0px 2px 12px 11px rgba(0,0,0,1);
   position: absolute;
-  bottom: 0;
+  bottom: 30px;
   height: 60%;
-  font-size: 40px;
+  font-size: 80px;
+  background-color: black;
+  opacity: .7;
+  color: ghostwhite;
   font-weight: 800;
   display: inline-block;
+}
+
+.carousel-arrow:hover {
+  opacity: .9;
 }
 
 .left {
@@ -113,7 +138,7 @@ hr {
 .right {
   background-image: url("http://cdn-2.freeclipartnow.com/d/40372-1/arrow-stubby-right.jpg");
   background-size: 100% 100%;
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
 }
 .carousel-arrow:hover {
   color: gray;
@@ -122,17 +147,18 @@ hr {
 
 .book-info {
   width: 600px;
-  /*margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;*/
   left: calc(50% - 300px);
   position: fixed;
-  top: 90px;
-  bottom: 200px;
+  top: 110px;
+  bottom: 220px;
   background-color: white;
   padding: 20px;
   border-radius: 7px;
   font-family: sans-serif;
+  -webkit-box-shadow: 10px 10px 22px 31px rgba(255,255,255,1);
+  -moz-box-shadow: 10px 10px 22px 31px rgba(255,255,255,1);
+  box-shadow: 10px 10px 22px 31px rgba(255,255,255,1);
+  opacity: .9;
 }
 
 .description-wrapper {
@@ -237,13 +263,7 @@ hr {
   width: 300px;
   background-color: #335CAD;
   color: white;
-  transition: all 2s ease-in-out;
-  /*transition-timing-function: cubic-bezier(0, 1, 0.5, 1);*/
-  -webkit-transform: translate(3em,0);
-  -moz-transform: translate(3em,0);
-  -o-transform: translate(3em,0);
-  -ms-transform: translate(3em,0);
-  transform: translate(3em,0);
+  transition: all 1s ease-in-out;
   z-index: 10;
 }
 
