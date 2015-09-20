@@ -16,6 +16,10 @@ hr {
   border-top: 1px solid #969688 !important;
 }
 
+#side-bar hr {
+  border-top: 1px solid white !important;
+}
+
 #nav {
   position: relative;
   background-color: #335CAD;
